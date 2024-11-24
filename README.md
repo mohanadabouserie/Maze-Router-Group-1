@@ -95,3 +95,22 @@ OBS (1,5,7)
 net1 (0,1,1) (0,8,8)
 net2 (1,0,0) (1,9,9)
 ```
+
+## Challenges
+
++ **Choosing the Right Algorithm:**
+    - Deciding on the most suitable algorithm for optimal pathfinding was a key challenge. We selected dijkstra search for its ability to efficiently explore the grid while minimizing the cost. However, fine-tuning the heuristic to balance between computational efficiency and accuracy required careful consideration.
+
++ **Accounting for Vias and bend penalties:**
+    - Incorporating the penalties for bends and vias into the pathfinding logic added complexity. Each movement had to be evaluated not just for its distance but also for its associated penalties, particularly for transitions between layers (vias) and deviations from preferred directions.
+
++ **Flexibility in Via Placement:**
+    - Ensuring that vias could be placed at any location in the grid without overlapping or causing routing conflicts was challenging. We had to dynamically manage via numbers, update the grid's metadata, and ensure the visualization clearly highlighted vias even when combined with other elements like pins.
+
+
+## Contributions
+
+- **Algorithm:** Mohanad and Mahmoud Nour
+- **Visualization:** Adham and Mohanad
+- **Testing and debugging**: Noureldeen Allama
+- **Documentation:** Adham and Noureldeen Allama
