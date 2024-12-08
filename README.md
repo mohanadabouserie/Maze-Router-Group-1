@@ -96,10 +96,38 @@ We are validating the following:
 
 ### Bonus Implementation
 
-We implemented a net ordering heuristic that changes the order of the nets implemented based on three different factors:
-- **Manhattan distance:** Larger nets (in terms of spread) are prioritized secondarily.   
-- **Estimated Costs:** Based on the total number of bends and vias needed. Lower costs are prioritized
-- **Number of Pins:** Nets with more pins are deprioritized (as a tie-breaker, indicated by the negative sign).
+We implemented a net ordering heuristic to prioritize nets for routing, considering several factors like distance, bends, vias, and obstacles to minimize overall routing cost.
+
+#### Key Functions and Their Roles
+
++ calculate_manhattan_distance(pins)
+    - Purpose: Calculates the Manhattan distance between the furthest pair of pins in a net.
+    - Logic:
+        - For each pair of pins, calculate the Manhattan distance (|x1 - x2| + |y1 - y2|).
+        - Return the maximum distance among all pairs.
+    - Why?:
+    	- Manhattan distance gives an idea of how far apart the pins are, influencing the complexity of routing the net.
+
++ estimate_net_cost(pins)
+    - Purpose: Provides an estimate of the total routing cost for a net.
+    - Logic:
+        - For each consecutive pair of pins, compute:
+            1.	Manhattan Distance: Base cost of connecting the two pins.
+            2.	Bends: Add a penalty (bend_penalty) if a turn is needed.
+            3.	Vias: Add a penalty (via_penalty) if changing layers is required.
+            4.	Obstacles: Add a high penalty (100) for crossing an obstruction.
+        - Sum these factors across all connections between pins in the net.
+    - Why?:
+        - This provides a heuristic for the difficulty or cost of routing the net, including potential obstructions and inefficiencies.
+
++ net_priority(net)
+    - Purpose: Assigns a priority to each net based on its estimated routing difficulty.
+    - Logic:
+        - Compute three key metrics for the net:
+            1.	Estimated Cost: Output of estimate_net_cost(pins).
+            2.	Manhattan Distance: Output of calculate_manhattan_distance(pins).
+            3.	Pin Count: Number of pins in the net.
+
 
 ## Compilation and Execution Instructions
 
