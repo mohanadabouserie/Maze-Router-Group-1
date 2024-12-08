@@ -23,7 +23,7 @@ The maze router operates on a NxM grid with two layers:
     - Existing routes for other already implemented nets
 
 - **Algorithm Behavior**:
-    - Takes multiple sources in the case that we already found an optimal path from one pin to the other (all cells on the path are treated as sources)
+    - Takes one source to start from and in the case that we already found an optimal path from one pin to the other (all cells on the path are treated as sources that we can start from)
     - takes multiple targets and tries to find a path to any of them (the target that is reached is returned to inform the routing algorithm which target of them that we reached so not to treat as target anymore)
     - Initialize two 2D dictionaries (dist and paths). These dictionaries keep track of the minimum cost to reach each node and the different paths taken to get there.
     - Note that for each cell we need to store multiple paths (the parent is used as a key for the dictionary of each cell). The same goes for the “dist” dictionary
@@ -34,7 +34,8 @@ The maze router operates on a NxM grid with two layers:
         - check if we reached any of the targets
         - if we reach the target we traceback the path and store it along with the cost in an array of potential routes
         - we explore its neighbours from all directions
-        - for each valid neighbour (not an obstacle or a via or a cell already used in another net or out of the grid) we calculate the cost by taking into consideration the normal move     
+        - for each valid neighbour (not an obstacle or a via or a cell already used in another net or out of the grid) we calculate the cost by taking into consideration the normal move cost, the via cost, and the bend cost, and an additional heuristic cost that is based on the euclidean distance to the destination
+            - note that we keep track of two costs (the normal cost and the heuristic cost that we use to guide the algorithm to prioritize nodes closer to targets)     
     - We finish when the priority queue is empty
     - If the potential routes array is empty then we return an error that we cannot find a route
     - We check all the possible routes that we were able to construct and choose the path with the lowest cost (the normal cost, not the heuristic cost)
