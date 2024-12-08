@@ -178,3 +178,7 @@ net2 (1,0,0) (1,9,9)
 - **Visualization:** Adham and Mohanad
 - **Testing and debugging**: Adham and Noureldeen Allama
 - **Documentation:** Adham and Noureldeen Allama
+
+## Slides
+
+Link to google [Slides](https://docs.google.com/presentation/d/1mGPigdaBWROdvh0VYwYgH00zDTCTuXtz/edit?usp=sharing&ouid=113565681746254344000&rtpof=true&sd=true)
